@@ -38,6 +38,10 @@ binRouter.get(':name', (req, res, next) => {
 
 binRouter.use(express.static('build/bin'));
 
+app.post('/createNewBin', (req, res) => {
+    
+})
+
 app.post('/', res.status(404))
 
 app.use((req,res) => {
