@@ -6,6 +6,7 @@ let writeLocation;
 
 writeLocation = `${__dirname}/bins.json`;
 binsList = require(writeLocation);
+binsList = JSON.parse(fs.readFileSync(writeLocation, 'utf-8'));
 
 const db = {};
 
@@ -15,12 +16,12 @@ db.create = name => {
   });
   binsList.push(newBin);
   fs.writeFileSync(writeLocation, JSON.stringify(binsList, null, 2));
-  return binList.slice(-1)[0];
+  return binsList.slice(-1)[0];
 }
 
 db.findOne = name => {
-  if (binList[name] === undefined) {return false}
-  else {return binList[name]}
+  if (binsList[name] === undefined) {return false}
+  else {return binsList[name]}
 }
 
 db.findAll = () => binsList;

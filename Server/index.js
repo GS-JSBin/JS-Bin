@@ -5,9 +5,10 @@ const io = require('socket.io')(http);
 const adminRouter = express.Router();
 const binRouter = express.Router();
 const path = require('path');
-const db = require('./db/')
+const db = require('./db/bins.js')
 
 app.use('/admin', adminRouter);
+app.use('/bin', binRouter);
 
 io.on('connection', function(socket) {
     socket.on('updatedCode', function(newCode) {
@@ -25,12 +26,13 @@ adminRouter.get('/', (req, res) => {
     res.sendfile(path.resolve(__dirname, 'build/admin/index.html'))
 })
 
-binRouter.get(':name', (req, res, next) => {
-    if(req.params.name.split('.')[req.params.name.split('.').length - 1] === 'js' || req.params.name.split('.')[req.params.name.split('.').length - 1] === 'map') {
-        next('route');
+binRouter.get('/:name', (req, res, next) => {
+    if(req.params.name.split('.')[req.params.name.split('.').length - 1] === 'js' || req.params.name.split('.')[req.params.name.split('.').length - 1] === 'map' || req.params.name.split('.')[req.params.name.split('.').length - 1] === 'css') {
+        return next('route');
     } 
-    if (db.findOne(res.params.name)) {
-        res.json(db.findOne(res.params.name));
+    if (db.findOne(req.params.name)) {
+        res.sendFile(path.resolve(__dirname, '../build/bin/index.html'));
+        //TODO make route /:name/json that returns json from db res.json(db.findOne(req.params.name));
     } else {
         res.status(404).json({ error: 'This bin does not exist!!!' });
     }
@@ -38,11 +40,7 @@ binRouter.get(':name', (req, res, next) => {
 
 binRouter.use(express.static('build/bin'));
 
-app.post('/createNewBin', (req, res) => {
-    
-})
-
-app.post('/', res.status(404))
+app.post('/', (req, res) => res.status(404))
 
 app.use((req,res) => {
     res.sendStatus(404)});
