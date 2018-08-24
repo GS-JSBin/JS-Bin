@@ -11,12 +11,13 @@ binsList = JSON.parse(fs.readFileSync(writeLocation, 'utf-8'));
 const db = {};
 
 db.create = name => {
-  const newBin = Object.assign(bin, {
-    //
-  });
-  binsList.push(newBin);
+  const newBin = {
+      "terminal": '',
+      "code": ''
+    }
+  binsList[name] = newBin;
   fs.writeFileSync(writeLocation, JSON.stringify(binsList, null, 2));
-  return binsList.slice(-1)[0];
+  // return binsList.slice(-1)[0];
 }
 
 db.findOne = name => {
@@ -26,8 +27,17 @@ db.findOne = name => {
 
 db.findAll = () => binsList;
 
+db.deleteOne = name => {
+  if (binsList[name] === undefined) {return false}
+  else {
+    delete binsList[name]
+    fs.writeFileSync(writeLocation, JSON.stringify(binsList, null, 2));
+    return true;
+  }
+}
+
 db.drop = () => {
-  binList = [];
+  binsList = [];
   fs.writeFileSync(writeLocation, JSON.stringify(binsList, null, 2));
   return true;
 };
