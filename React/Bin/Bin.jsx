@@ -22,10 +22,10 @@ render () {
         <div>
             <h1>Hello From Bin</h1>
             <CodeEditor onChange={this.handleChange} code={this.state.code} />
-            <Terminal />
+            <Terminal terminalText={this.state.terminalText} />
+            <ToolBar onChange={this.handleChange} code={this.state.code} />
         </div>
     )
 }
 }
-
 export default Bin;
