@@ -1,7 +1,14 @@
 textarea {
     background: cornsilk;
-    width: 100px; 
-    height: 20px; 
+    width: 500px; 
+    height: 250px; 
     padding: 1px;
     resize: none;
   }
+terminal {
+  background:grey;
+  width: 5px; 
+  height: 25px; 
+  padding: 1px;
+  resize: none;
+}

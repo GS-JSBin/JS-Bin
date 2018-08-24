@@ -1,9 +1,11 @@
 import React from "react";
 
-const CodeEditor = () =>{
-   return (<div>
-        
-    </div>);
+const Terminal = (props) =>{
+   return (
+        <div>
+            <textarea class ="terminal" value={props.terminalText}/>
+        </div>
+    );
 }
 
-export default CodeEditor;
+export default Terminal;
