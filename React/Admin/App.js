@@ -12,7 +12,7 @@ class App extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.createBin = this.createBin.bind(this);
-
+    this.deleteBin = this.deleteBin.bind(this);
   }
 
   createBin() {
@@ -25,11 +25,29 @@ class App extends Component {
     this.setState({ binName: e.target.value })
   }
 
+  deleteBin(e) {
+    // create a copy of the array to pass into set state, don't mutate directly. 
+    const activeBins = this.state.activeBins.slice(); 
+    // splice the active Bins array
+    activeBins.splice(e.target.key, 1);
+    // set state
+    this.setState({ activeBins });
+    // remove from the database 
+
+  }
+
   render() {
     return (
       <div>
-        <Bincreator binName={this.state.binName} handleChange={this.handleChange}/>
-        <Binlist />
+        <Bincreator 
+          binName={this.state.binName} 
+          handleChange={this.handleChange}
+          createBin={this.createBin} />
+        <Binlist 
+          binName={this.state.binName} 
+          deleteBin={this.deleteBin}
+          activeBins={this.state.activeBins}
+        />
       </div>
     )
   }
