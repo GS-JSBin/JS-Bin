@@ -1,0 +1,23 @@
+{
+  "name": "js-bin",
+  "version": "1.0.0",
+  "description": "Javascript Pair Programming Tool Built with React, Web Workers and Express.",
+  "main": "Server/index.js",
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/G0ldenSp00n/JS-Bin.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/G0ldenSp00n/JS-Bin/issues"
+  },
+  "homepage": "https://github.com/G0ldenSp00n/JS-Bin#readme"
+}
