@@ -4,7 +4,9 @@
   "description": "Javascript Pair Programming Tool Built with React, Web Workers and Express.",
   "main": "Server/index.js",
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2"
   },
   "devDependencies": {},
   "scripts": {
@@ -14,7 +16,7 @@
     "type": "git",
     "url": "git+https://github.com/G0ldenSp00n/JS-Bin.git"
   },
-  "author": "",
+  "author": "selcuk",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/G0ldenSp00n/JS-Bin/issues"
