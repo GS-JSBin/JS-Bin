@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Bincreator from './Bincreator.js';
 import Binlist from './Binlist.js';
+import './css/App.css';
 
 class App extends Component {
   constructor(props) {
@@ -63,6 +64,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <div class="admin_title"> Admin </div>
         <Bincreator 
           binName={this.state.binName} 
           handleChange={this.handleChange}
