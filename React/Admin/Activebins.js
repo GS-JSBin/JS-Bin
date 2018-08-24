@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-const Activebins =  props => {
+const Activebins = props => {
   return (
     <div>
       <span>{props.binName}</span>
