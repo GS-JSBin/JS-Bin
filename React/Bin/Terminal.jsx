@@ -1,7 +1,9 @@
 import React from "react";
 
 const CodeEditor = () =>{
-    <div>
+   return (<div>
         
-    </div>
+    </div>);
 }
+
+export default CodeEditor;

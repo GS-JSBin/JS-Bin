@@ -14,7 +14,7 @@ class Bin extends React.Component{
     }
 
    handleChange(e) {
-       this.setState({...this.state, ...{ code: e.target.value }});
+       this.setState({terminalText: this.state.terminalText, code: e.target.value});
    }
 
 render () {
@@ -27,3 +27,5 @@ render () {
     )
 }
 }
+
+export default Bin;
