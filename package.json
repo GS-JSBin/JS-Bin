@@ -6,6 +6,8 @@
   "dependencies": {
     "express": "^4.16.3",
     "parcel-bundler": "^1.9.7",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
     "socket.io": "^2.1.1"
   },
   "devDependencies": {
@@ -14,8 +16,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:admin": "parcel build React/Admin/index.html --out-dir build/admin",
-    "build:bin": "parcel build React/Bin/index.html --out-dir build/bin"
+    "start": "node Server/index.js",
+    "build:admin": "parcel build React/Admin/index.html --out-dir build/admin --public-url='/admin'",
+    "build:bin": "parcel build React/Bin/index.html --out-dir build/bin --public-url='/bin'"
   },
   "repository": {
     "type": "git",

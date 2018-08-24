@@ -38,7 +38,11 @@ binRouter.get(':name', (req, res, next) => {
 
 binRouter.use(express.static('build/bin'));
 
+<<<<<<< HEAD
 app.post('/', res.status(404))
+=======
+// app.use('/', express.static('build'))
+>>>>>>> master
 
 app.use((req,res) => {
     res.sendStatus(404)});
