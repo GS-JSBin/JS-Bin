@@ -6,8 +6,8 @@ const Binlist = props => {
     if (props.bins.length !== 0) {
       displayBins = props.bins.map((bin, i) => (
         <ActiveBins 
+          name={bin.binName}
           key={i} 
-          binName={props.binName} 
           deleteBin={props.deleteBin}
           redirectToBinPage={props.redirectToBinPage} />
       ))

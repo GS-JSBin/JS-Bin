@@ -16,26 +16,29 @@ class App extends Component {
   }
 
   createBin(e) {
-    // do post call here to store bin name in the database. 
     // get call will be in binList, in the component did mount to display bins in binlist. 
+    // do post call here to store bin name in the database. 
+    // manually pushing into active bins to test for rendering. 
+    // get the bin name in an object
 
-    // below was for testing purposes. 
-      // this.setState({ activeBins: this.state.activeBins.push(this.state.binName) })
-      // console.log('inside of createBin ',this.state.activeBins)
+    const pushIntoBin = this.state.activeBins;
+    const { binName } = this.state;
+    const binData = { binName };
+    pushIntoBin.push(binData);
+    this.setState({ activeBins: pushIntoBin })
       
     // reset the binName to '';
     this.setState({ binName : '' })
   }
 
   handleChange(e) {
-    // update state with the value user has placed in. 
+    // update state with the name user has placed in. 
     this.setState({ binName: e.target.value })
     
-    console.log('inside of handleChange ', this.state.binName);
   }
 
   deleteBin(e) {
-    console.log(e.target.key)
+    console.log('inside deletebin', e.target.key)
     // create a copy of the array to pass into set state, don't mutate directly. 
     const activeBins = this.state.activeBins.slice(); 
     // splice the active Bins array
@@ -51,7 +54,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // fetch Data
+    // fetch()
   }
   
 
@@ -63,7 +66,6 @@ class App extends Component {
           handleChange={this.handleChange}
           createBin={this.createBin} />
         <Binlist 
-          binName={this.state.binName} 
           deleteBin={this.deleteBin}
           bins={this.state.activeBins}
           redirectToBinPage={this.redirectToBinPage} />
