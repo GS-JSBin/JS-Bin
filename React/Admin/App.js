@@ -9,10 +9,10 @@ class App extends Component {
 
   render() {
     return (
-        <div>
-          <Bincreator />
-          <Binlist />
-        </div>
+      <div>
+        <Bincreator />
+        <Binlist />
+      </div>
     )
   }
 }
