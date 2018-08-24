@@ -28,8 +28,8 @@ adminRouter.get('/', (req, res) => {
 })
 
 app.get('/webworker/:name', (req, res) => {
-    let consoleLogOverride = `console.log = function(string) {postMessage(string);} \n`;
-    fs.writeFile(path.resolve(__dirname, 'build/webworkers/', req.params.name), consoleLogOverride + db.findOne(req.params.name).code, function() {
+    let consoleLogOverride = `console.log = function(string) {postMessage(string);}`;
+    fs.writeFile(path.resolve(__dirname, 'build/webworkers/', req.params.name), consoleLogOverride + db.findOne(req.params.name).code.split('/n').join(''), function() {
         res.sendFile(path.resolve(__dirname, 'build/webworkers/', req.params.name));
     });
 });
