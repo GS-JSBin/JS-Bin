@@ -5,6 +5,7 @@ const io = require('socket.io')(http);
 const adminRouter = express.Router();
 const binRouter = express.Router();
 const path = require('path');
+const fs = require('fs');
 
 app.use('/admin', adminRouter);
 
@@ -22,6 +23,12 @@ adminRouter.use(express.static('build/admin'));
 adminRouter.get('/', (req, res) => {
     res.sendfile(path.resolve(__dirname, 'build/admin/index.html'))
 })
+
+app.get('/webworker/:name', (req, res) => {
+    fs.writeFile(path.resolve(__dirname, 'build/webworkers/', req.params.name), function() {
+        res.sendFile(path.resolve(__dirname, 'build/webworkers/', req.params.name));
+    });
+});
 
 app.post('/')
 
