@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 
-class Activebins extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div>
-        <span>{this.props.binName}</span>
-        <button onClick={(e) => {this.props.deleteBin(e)}}></button>
-      </div>
-    )
-  }
+const Activebins =  props => {
+  return (
+    <div>
+      <span>{props.binName}</span>
+      <button id={props.binName} onClick={(e) => props.deleteBin(e)}>Delete</button>
+      <button id={props.binName} onClick={(e) => props.redirectToBinPage(e)}>Open</button>
+    </div>
+  )
 }
+
 export default Activebins;

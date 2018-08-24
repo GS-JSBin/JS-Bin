@@ -4,7 +4,7 @@ const Bincreator = props => {
   return (
     <div>
       <input type="text" onChange={(e) => props.handleChange(e)} value={props.binName} />
-      <button onClick={() => props.createBin()}>Create</button>
+      <button binName={props.binName} onClick={(e) => props.createBin(e)}>Create</button>
     </div>
   )
 }
