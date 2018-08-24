@@ -1,0 +1,7 @@
+textarea {
+    background: cornsilk;
+    width: 100px; 
+    height: 20px; 
+    padding: 1px;
+    resize: none;
+  }
