@@ -25,7 +25,7 @@ adminRouter.get('/', (req, res) => {
 
 app.post('/')
 
-app.get('')
+// app.use('/', express.static('build'))
 
 
 http.listen(3000, function() {

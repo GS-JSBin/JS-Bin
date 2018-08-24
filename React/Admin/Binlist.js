@@ -23,10 +23,12 @@ class Binlist extends Component {
   }
 
   render() {
-
-    const displayBins = this.state.activeBin.map((bin, i) => (
-      <ActiveBins key={i} binName={this.state.activeBins} deleteBin={this.deleteBin}/>
-    ))
+    let displayBins;
+    if (this.state.activeBins.length !== 0) {
+      displayBins = this.state.activeBin.map((bin, i) => (
+        <ActiveBins key={i} binName={this.state.activeBins} deleteBin={this.deleteBin}/>
+      ))
+    }
 
     return (
       <div>

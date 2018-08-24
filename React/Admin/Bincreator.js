@@ -25,7 +25,7 @@ class Bincreator extends Component {
   render() {
     return (
       <div>
-        <input type="text" onChange={(e) => this.handleChange(e)}>{this.state.binName}</input> 
+        <input type="text" onChange={(e) => this.handleChange(e)} value={this.state.binName} />
         <button onClick={() => this.createBin()}>Create</button>
       </div>
     )
