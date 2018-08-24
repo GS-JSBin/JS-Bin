@@ -5,6 +5,7 @@ const io = require('socket.io')(http);
 const adminRouter = express.Router();
 const binRouter = express.Router();
 const path = require('path');
+const fs = require('fs');
 const db = require('./db/bins.js')
 
 app.use('/admin', adminRouter);
@@ -25,6 +26,13 @@ adminRouter.use(express.static('build/admin'));
 adminRouter.get('/', (req, res) => {
     res.sendfile(path.resolve(__dirname, 'build/admin/index.html'))
 })
+
+app.get('/webworker/:name', (req, res) => {
+    let consoleLogOverride = `console.log = function(string) {postMessage(string);} \n`;
+    fs.writeFile(path.resolve(__dirname, 'build/webworkers/', req.params.name), consoleLogOverride + db.findOne(req.params.name).code, function() {
+        res.sendFile(path.resolve(__dirname, 'build/webworkers/', req.params.name));
+    });
+});
 
 binRouter.get('/:name', (req, res, next) => {
     if(req.params.name.split('.')[req.params.name.split('.').length - 1] === 'js' || req.params.name.split('.')[req.params.name.split('.').length - 1] === 'map' || req.params.name.split('.')[req.params.name.split('.').length - 1] === 'css') {
