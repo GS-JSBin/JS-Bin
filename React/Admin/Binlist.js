@@ -8,6 +8,7 @@ const Binlist = props => {
         <ActiveBins 
           name={bin.binName}
           key={i} 
+          elementId={i}
           deleteBin={props.deleteBin}
           redirectToBinPage={props.redirectToBinPage} />
       ))

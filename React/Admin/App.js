@@ -34,19 +34,21 @@ class App extends Component {
   handleChange(e) {
     // update state with the name user has placed in. 
     this.setState({ binName: e.target.value })
-    
   }
 
-  deleteBin(e) {
-    console.log('inside deletebin', e.target.key)
-    // create a copy of the array to pass into set state, don't mutate directly. 
-    const activeBins = this.state.activeBins.slice(); 
-    // splice the active Bins array
-    activeBins.splice(e.target.key, 1);
-    // set state
-    this.setState({ activeBins });
-    // remove from the database 
+  deleteBin(id) {
 
+    function inner(e) {
+      // create a copy of the array to pass into set state, don't mutate directly. 
+      const activeBins = this.state.activeBins.slice(); 
+      // splice the active Bins array
+      activeBins.splice(id, 1);
+      // set state
+      this.setState({ activeBins });
+      // remove from the database 
+      console.log('inside of inner function ' , id)
+    }
+    return inner.bind(this);
   }
 
   redirectToBinPage(e) {
@@ -54,7 +56,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // fetch()
+    
   }
   
 
