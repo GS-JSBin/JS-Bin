@@ -4,6 +4,7 @@
   "description": "Javascript Pair Programming Tool Built with React, Web Workers and Express.",
   "main": "Server/index.js",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "parcel-bundler": "^1.9.7",
     "react": "^16.4.2",
