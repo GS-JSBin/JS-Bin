@@ -10,7 +10,7 @@ class CodeEditor extends React.Component {
         <div>
         <h3>JS-Bin</h3>
             <div class="highlightDiv">
-            <textarea id='codeArea' class ="ldt" onChange={this.props.onChange} value={this.props.code}/>
+            <textarea id='codeArea' class ="ldt" onKeyDown={this.props.handleTab} onChange={this.props.onChange} value={this.props.code}/>
             </div>
         </div>);
     }

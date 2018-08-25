@@ -17,6 +17,7 @@ class Bin extends React.Component{
             socket: null
         }
         this.handleChange = this.handleChange.bind(this);
+        this.handleTab = this.handleTab.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.updateCode = this.updateCode.bind(this);
         this.updateTerminal= this.updateTerminal.bind(this);
@@ -27,6 +28,13 @@ class Bin extends React.Component{
    handleChange(e) {
         this.state.socket.emit('updatedCode', e.target.value);
         this.setState({socket: this.state.socket, terminalText: this.state.terminalText, webWorker: this.state.webWorker, code: e.target.value});
+    }
+
+    handleTab(e) {
+        if(e.keyCode === 9) {
+            e.preventDefault();
+            e.target.value += "   ";
+        }
     }
 
    handleClick(event) {
@@ -71,7 +79,6 @@ class Bin extends React.Component{
             }
 
             this.state.webWorker.onerror = (event) => {
-                console.log(event);
                 socket.emit('updatedTerminal',  event.message);
                 this.updateTerminal(this.state.terminalText + event.message + ' \n');
             }
@@ -80,7 +87,7 @@ class Bin extends React.Component{
         return (
             <div>
                 <div class="code">
-                    <CodeEditor onChange={this.handleChange} code={this.state.code} />
+                    <CodeEditor onChange={this.handleChange} code={this.state.code} handleTab={this.handleTab}/>
                     <Terminal terminalText={this.state.terminalText} />
                 </div>
                 <ToolBar onClick={this.handleClick} killWorker={this.killWorker} code={this.state.code} />
