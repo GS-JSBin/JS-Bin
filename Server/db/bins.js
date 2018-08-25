@@ -12,8 +12,8 @@ const db = {};
 
 db.create = name => {
   const newBin = {
-      "terminal": '',
-      "code": ''
+      "terminal": "",
+      "code": ""
     }
   binsList[name] = newBin;
   fs.writeFileSync(writeLocation, JSON.stringify(binsList, null, 2));
