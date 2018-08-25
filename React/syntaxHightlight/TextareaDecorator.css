@@ -25,6 +25,8 @@
 	color: transparent !important;
 	/* make sure the alpha is low enough so it doesn't block the output layer */
 	color: rgba(0,0,0,0.2) !important;
+	width: 1200px; 
+    height: 600px; 
     padding: 0px;
     resize: none;
 }

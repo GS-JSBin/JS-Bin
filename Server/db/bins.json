@@ -1,9 +1,13 @@
 {
+<<<<<<< HEAD
   "hello": {
     "terminal": "",
     "code": ""
   },
   "hihihi": {
+=======
+  "dev": {
+>>>>>>> 67afba32f5c3aa6bcd357fb5d457c03e9b12c51e
     "terminal": "",
     "code": ""
   }
