@@ -16,9 +16,11 @@ The Admin Page allows for the creation, deletion of Bins.  From this screen bins
   ##### Admin Page
     npm run build:admin
    This will build the Admin react code into the 'build/admin' folder.
+   
   ##### Bin Page
     npm run build:bin
    This will build the Bin react code into the 'build/react' folder.
+   
   ##### Login Page
     npm run build:login
    This will build the Login react code into the 'build/login' folder.
