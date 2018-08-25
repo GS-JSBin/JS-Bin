@@ -19,7 +19,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node Server/index.js",
     "build:admin": "parcel build React/Admin/index.html --out-dir build/admin --public-url=/admin",
-    "build:bin": "parcel build React/Bin/index.html --out-dir build/bin --public-url=/bin"
+    "build:bin": "parcel build React/Bin/index.html --out-dir build/bin --public-url=/bin",
+    "build:login": "parcel build React/ReactLogin/index.html --out-dir build/login --public-url=/login"
   },
   "repository": {
     "type": "git",
