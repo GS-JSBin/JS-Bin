@@ -3,10 +3,11 @@ import ActiveBins from './Activebins.js';
 
 const Binlist = props => {
     let displayBins;
-    if (props.bins.length !== 0) {
-      displayBins = props.bins.map((bin, i) => (
+    if (!Object.keys(props.bins).length == 0) {
+      const keysOfBinList = Object.keys(props.bins);
+      displayBins = keysOfBinList.map((name, i) => (
         <ActiveBins 
-          name={bin.binName}
+          name={name}
           key={i} 
           elementId={i}
           deleteBin={props.deleteBin}

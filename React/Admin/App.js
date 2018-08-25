@@ -7,29 +7,41 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeBins: [],
+      activeBins: {},
       binName: '',
     }
 
     this.handleChange = this.handleChange.bind(this);
     this.createBin = this.createBin.bind(this);
     this.deleteBin = this.deleteBin.bind(this);
+    this.fetchBinsAndUpdatePage = this.fetchBinsAndUpdatePage.bind(this);
+  }
+
+  fetchBinsAndUpdatePage() {
+    fetch('http://localhost:3000/admin/allBins')
+    .then((res => res.json()))
+    .then(res => this.setState({ activeBins: res}))
+    .catch(err => console.log('Error grabbing bins ', err))
   }
 
   createBin(e) {
-    // get call will be in binList, in the component did mount to display bins in binlist. 
-    // do post call here to store bin name in the database. 
-    // manually pushing into active bins to test for rendering. 
-    // get the bin name in an object
-
-    const pushIntoBin = this.state.activeBins;
     const { binName } = this.state;
-    const binData = { binName };
-    pushIntoBin.push(binData);
-    this.setState({ activeBins: pushIntoBin })
-      
-    // reset the binName to '';
+  
+    fetch('http://localhost:3000/admin/addBin', {
+      method: 'POST',
+      body: JSON.stringify({name: binName}),
+      headers: {
+        "Content-Type": "application/json"
+      },
+    }).then(response => {
+      // console.log('fetched response ', response);
+    }).catch(err => {
+      console.log('error ', err);
+    })
+
+    // reset input bar value. 
     this.setState({ binName : '' })
+    this.fetchBinsAndUpdatePage();
   }
 
   handleChange(e) {
@@ -37,27 +49,26 @@ class App extends Component {
     this.setState({ binName: e.target.value })
   }
 
-  deleteBin(id) {
+  deleteBin(e) {
+    fetch('http://localhost:3000/admin/deleteBin', {
+      method: 'delete',
+      body: JSON.stringify({ name: e.target.id }),
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
 
-    function inner(e) {
-      // create a copy of the array to pass into set state, don't mutate directly. 
-      const activeBins = this.state.activeBins.slice(); 
-      // splice the active Bins array
-      activeBins.splice(id, 1);
-      // set state
-      this.setState({ activeBins });
-      // remove from the database 
-      console.log('inside of inner function ' , id)
-    }
-    return inner.bind(this);
+    this.fetchBinsAndUpdatePage();
   }
 
   redirectToBinPage(e) {
-    
+    console.log(e.target);
   }
 
   componentDidMount() {
-    
+    this.fetchBinsAndUpdatePage();
   }
   
 
