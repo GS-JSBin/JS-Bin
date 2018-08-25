@@ -1,8 +1,4 @@
 console.log = function(string) {postMessage(string + '\n');} 
  try { 
-function test() {
-   console.log('testing');
-}
-
-test();
+console.log('test');
  } catch (err) { postMessage(err); }

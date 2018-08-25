@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Terminal from "./Terminal.jsx";
 import ToolBar from "./ToolBar.jsx";
 import CodeEditor from "./CodeEditor.jsx";
-import Password from "./Password";
 import * as io from "../../node_modules/socket.io-client/dist/socket.io.js";
 
 let socket;
@@ -24,7 +23,6 @@ class Bin extends React.Component{
         this.updateCode = this.updateCode.bind(this);
         this.updateTerminal= this.updateTerminal.bind(this);
         this.setSocket = this.setSocket.bind(this);
-        this.passwordCheck = this.passwordCheck.bind(this);
         this.handleGet = this.handleGet.bind(this)
     }
 
@@ -73,16 +71,6 @@ class Bin extends React.Component{
         socket = io.connect('http://localhost:3000/bin/' + window.location.href.split('/')[window.location.href.split('/').length - 1]);
         this.setSocket(socket);
     }
-    passwordCheck() {
-        fetch('http://localhost:3000/bin/:name')
-        .then((res =>{
-            res.json()
-        } ))
-        .then(res => {
-            this.setState({ password: res})
-        })
-        .catch(err => console.log('Error grabbing bins ', err))
-    }
     handleGet(e){
         this.setState({password: e.target.value})
     }
@@ -107,7 +95,6 @@ class Bin extends React.Component{
                     <Terminal terminalText={this.state.terminalText} />
                 </div>
                 <ToolBar onClick={this.handleClick} killWorker={this.killWorker} code={this.state.code} />
-                <Password passwordCheck={this.passwordCheck} password={this.handleGet}/>
             </div>
         )
     }
