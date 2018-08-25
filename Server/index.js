@@ -68,8 +68,9 @@ binRouter.get('/:name/getContent', (req, res) => {
 })
 
 app.get('/webworker/:name', (req, res) => {
-    let consoleLogOverride = `console.log = function(string) {postMessage(string + '\\n');} \n`;
-    fs.writeFile(path.resolve(__dirname, '../build/webworkers/', req.params.name + '.js'), consoleLogOverride + db.findOne(req.params.name).code, function(err) {
+    let consoleLogOverride = `console.log = function(string) {postMessage(string + '\\n');} \n try { \n`;
+    let catchString = `\n } catch (err) { postMessage(err); }`;
+    fs.writeFile(path.resolve(__dirname, '../build/webworkers/', req.params.name + '.js'), consoleLogOverride + db.findOne(req.params.name).code + catchString, function(err) {
         if(err) throw new Error(err);
         res.sendFile(path.resolve(__dirname, '../build/webworkers/', req.params.name + '.js'));
     });
