@@ -23,14 +23,18 @@ class Bin extends React.Component{
         this.updateCode = this.updateCode.bind(this);
         this.updateTerminal= this.updateTerminal.bind(this);
         this.setSocket = this.setSocket.bind(this);
+<<<<<<< HEAD
         this.passwordCheck = this.passwordCheck.bind(this);
         this.handleGet = this.handleGet.bind(this)
+=======
+
+>>>>>>> master
     }
 
    handleChange(e) {
         this.state.socket.emit('updatedCode', e.target.value);
         this.setState({socket: this.state.socket, terminalText: this.state.terminalText, webWorker: this.state.webWorker, code: e.target.value});
-   }
+    }
 
    handleClick(event) {
        let worker = new Worker('/webworker/' + window.location.href.split('/')[window.location.href.split('/').length - 1]);
@@ -84,6 +88,12 @@ class Bin extends React.Component{
             this.state.webWorker.onmessage = (event) => {
                 socket.emit('updatedTerminal',  event.data);
                 this.updateTerminal(this.state.terminalText + event.data);
+            }
+
+            this.state.webWorker.onerror = (event) => {
+                console.log(event);
+                socket.emit('updatedTerminal',  event.message);
+                this.updateTerminal(this.state.terminalText + event.message + ' \n');
             }
         }
 

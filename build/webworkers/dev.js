@@ -1,6 +1,8 @@
 console.log = function(string) {postMessage(string + '\n');} 
-for(let i = 0; i <= 10; i++) {
-   console.log(i);
+ try { 
+function test () {
+  console.log('testing');
 }
 
-//testing
+test();
+ } catch (err) { postMessage(err); }

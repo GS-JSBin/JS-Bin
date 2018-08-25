@@ -1,4 +1,4 @@
-.textarea {
+.ldt {
     background: lightgrey;
     width: 1200px; 
     height: 600px; 
@@ -6,6 +6,9 @@
     margin-right: 10px;
     resize: none;
   }
+
+
+
   .terminal{
     background-color: black;
     color: white;
@@ -20,7 +23,7 @@
   align-content: flex-start;
 }
 .button{
-  background-color: #4CAF50; /* Green */
+  background-color: #1E90FF;
   border: none;
   color: white;
   padding: 15px 32px;
@@ -33,3 +36,12 @@
   display: flex;
   justify-content: space-evenly
 }
+
+			/* highlight styles */
+			.ldt .comment { color: #1c7900; }
+			.ldt .string { color: green; }
+			.ldt .number { color: #b0ca92; }
+			/* setting inline-block and margin to avoid misalignment bug in windows */
+			.ldt .keyword { color: #2e5697; font-weight: bold; display: inline-block; margin-bottom: -1px; }
+			.ldt .variable { color: #69a1d6; }
+			.ldt .define { color: rgb(59, 146, 117); }

@@ -16,6 +16,7 @@ class Bin extends React.Component{
             res.json()
         } ))
         .then(res => {
+            console.log()
             this.setState({ password: res})
         })
         .catch(err => console.log('Error grabbing bins ', err))
