@@ -73,7 +73,7 @@ class Bin extends React.Component{
             this.state.webWorker.onerror = (event) => {
                 console.log(event);
                 socket.emit('updatedTerminal',  event.message);
-                this.updateTerminal(this.state.terminalText + event.message + '\\n');
+                this.updateTerminal(this.state.terminalText + event.message + ' \n');
             }
         }
 
