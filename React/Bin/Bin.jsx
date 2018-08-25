@@ -24,12 +24,8 @@ class Bin extends React.Component{
         this.updateCode = this.updateCode.bind(this);
         this.updateTerminal= this.updateTerminal.bind(this);
         this.setSocket = this.setSocket.bind(this);
-<<<<<<< HEAD
         this.passwordCheck = this.passwordCheck.bind(this);
         this.handleGet = this.handleGet.bind(this)
-=======
-
->>>>>>> master
     }
 
    handleChange(e) {
