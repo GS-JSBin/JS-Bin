@@ -19,6 +19,24 @@ adminRouter.get('/', (req, res) => {
     res.sendfile(path.resolve(__dirname, 'build/admin/index.html'))
 })
 
+io.of(/^\/bin\/[a-zA-Z]+/).on('connect', (socket) => {
+    let namespace = socket.nsp;
+    socket.join(namespace.name);
+
+    socket.emit('codeUpdate', db.findOne(namespace.name.split('/')[2]).code);
+    socket.emit('terminalUpdate', db.findOne(namespace.name.split('/')[2]).terminal);
+
+    socket.on('updatedCode', function(newCode) {
+        db.findOne(namespace.name.split('/')[2]).code = newCode;
+        socket.to(namespace.name).emit('codeUpdate', newCode);
+    });
+
+    socket.on('updatedTerminal', function(terminalText) {
+        db.findOne(namespace.name.split('/')[2]).terminal += terminalText;
+        socket.to(namespace.name).emit('terminalUpdate', db.findOne(namespace.name.split('/')[2]).terminal);
+    });
+});
+
 // will return an object containing all created bin objects
 adminRouter.get('/allBins', (req,res) => {
     res.send(db.findAll());
@@ -50,7 +68,7 @@ binRouter.get('/:name/getContent', (req, res) => {
 })
 
 app.get('/webworker/:name', (req, res) => {
-    let consoleLogOverride = `console.log = function(string) {postMessage(string);} \n`;
+    let consoleLogOverride = `console.log = function(string) {postMessage(string + '\\n');} \n`;
     fs.writeFile(path.resolve(__dirname, '../build/webworkers/', req.params.name + '.js'), consoleLogOverride + db.findOne(req.params.name).code, function(err) {
         if(err) throw new Error(err);
         res.sendFile(path.resolve(__dirname, '../build/webworkers/', req.params.name + '.js'));
@@ -58,22 +76,6 @@ app.get('/webworker/:name', (req, res) => {
 });
 
 binRouter.get('/:name', (req, res, next) => {
-    io.on('connection', function(socket) {
-        console.log('connecting');
-        socket.emit('codeUpdate', db.findOne(req.params.name).code);
-        socket.emit('terminalUpdate', db.findOne(req.params.name).terminal);
-    
-        socket.on('updatedCode', function(newCode) {
-            console.log('writing')
-            db.findOne(newCode.bin).code = newCode.data;
-            socket.broadcast.emit('codeUpdate', newCode.data);
-        });
-    
-        socket.on('updatedTerminal', function(terminalText) {
-            db.findOne(terminalText.bin).terminal = terminalText.data;
-            socket.broadcast.emit('terminalUpdate', terminalText.data);
-        });
-    });
 
     if(req.params.name.split('.')[req.params.name.split('.').length - 1] === 'js' || req.params.name.split('.')[req.params.name.split('.').length - 1] === 'map' || req.params.name.split('.')[req.params.name.split('.').length - 1] === 'css') {
         return next('route');
@@ -92,6 +94,7 @@ app.post('/', (req, res) => res.status(404))
 app.use((req,res) => {
     res.sendStatus(404)});
 
-http.listen(3000, function() {
+http.listen(3000, function(err) {
+    if(err) throw new Error(err);
     console.log("Listening on Port 3000");
 });

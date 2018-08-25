@@ -5,6 +5,7 @@ import CodeEditor from "./CodeEditor.jsx";
 import * as io from "../../node_modules/socket.io-client/dist/socket.io.js";
 
 let socket;
+import "./css/codeeditor.css"
 
 class Bin extends React.Component{
     constructor(props) {
@@ -24,12 +25,10 @@ class Bin extends React.Component{
 
    handleChange(e) {
         this.state.socket.emit('updatedCode', e.target.value);
-        console.log('EMITING')
         this.setState({socket: this.state.socket, terminalText: this.state.terminalText, webWorker: this.state.webWorker, code: e.target.value});
    }
 
    handleClick(event) {
-       console.log('RUNNING')
        let worker = new Worker('/webworker/' + window.location.href.split('/')[window.location.href.split('/').length - 1]);
        this.setState({socket: this.state.socket, terminalText: this.state.terminalText, code: this.state.code, webWorker: worker});
    }
@@ -39,7 +38,7 @@ class Bin extends React.Component{
    }
 
    updateTerminal(terminalText) {
-    this.setState({socket: this.state.socket, terminalText: this.state.terminalText + terminalText + '\n', code: this.state.code, webWorker: this.state.webWorker});
+    this.setState({socket: this.state.socket, terminalText: terminalText, code: this.state.code, webWorker: this.state.webWorker});
    }
 
    setSocket(socket) {
@@ -53,29 +52,33 @@ class Bin extends React.Component{
         });
     }
 
-componentDidMount () {
-    console.log('connecting to ', 'http://localhost:3000/bin/' + window.location.href.split('/')[window.location.href.split('/').length - 1])
-    socket = io.connect('http://localhost:3000/socket.io');
-    this.setSocket(socket);
-}
-
-render () {
-
-    if(!!this.state.webWorker) {
-        this.state.webWorker.onmessage = (event) => {
-            socket.emit('updatedTerminal', {bin: window.location.href.split('/')[window.location.href.split('/').length - 1], data: event.data});
-            this.updateTerminal(event.data);
-        }
+    killWorker () {
+        this.state.webWorker.terminate();
+        this.setState({socket: this.state.socket, terminalText: this.state.terminalText, code: this.state.code, webWorker: null});
     }
 
-    return (
-        <div>
-            <h1>Hello From Bin</h1>
-            <CodeEditor onChange={this.handleChange} code={this.state.code} />
-            <Terminal terminalText={this.state.terminalText} webWorker={this.state.webWorker}/>
-            <ToolBar onClick={this.handleClick} />
-        </div>
-    )
-}
+    componentDidMount () {
+        socket = io.connect('http://localhost:3000/bin/' + window.location.href.split('/')[window.location.href.split('/').length - 1]);
+        this.setSocket(socket);
+    }
+
+    render () {
+        if(this.state.webWorker !== null){
+            this.state.webWorker.onmessage = (event) => {
+                socket.emit('updatedTerminal',  event.data);
+                this.updateTerminal(this.state.terminalText + event.data);
+            }
+        }
+
+        return (
+            <div>
+                <div class="code">
+                    <CodeEditor onChange={this.handleChange} code={this.state.code} />
+                    <Terminal terminalText={this.state.terminalText} />
+                </div>
+                <ToolBar onClick={this.handleClick} killWorker={this.killWorker} code={this.state.code} />
+            </div>
+        )
+    }
 }
 export default Bin;

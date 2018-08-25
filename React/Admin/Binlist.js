@@ -15,7 +15,7 @@ const Binlist = props => {
     }
 
     return (
-      <div>
+      <div className="display_bins">
         {displayBins}
       </div>
     )
