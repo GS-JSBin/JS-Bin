@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 
 const Activebins = props => {
-  console.log('activebins', props)
+
   let displayPassword;
-  if (props.password !== '' || props.password !== undefined) {
+  if (!props.password === '') {
     displayPassword = <button id="displayPassword" disabled="true">{props.password}</button>
   } 
 
-  console.log('checking display', displayPassword)
   return (
     <div className="bins">
       <span>{props.name}</span>

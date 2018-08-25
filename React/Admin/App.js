@@ -28,10 +28,10 @@ class App extends Component {
   }
 
   createBin(e) {
-    const { binName } = this.state;
+    const binName = this.state.binName.trim();
     
     if (this.state.binName && this.state.password) {
-      const { password } = this.state;
+      const password = this.state.password.trim();
       fetch('http://localhost:3000/admin/addBin', {
         method: 'POST',
         body: JSON.stringify({ name: binName, password }),
