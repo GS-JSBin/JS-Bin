@@ -64,7 +64,7 @@ class App extends Component {
   }
 
   redirectToBinPage(e) {
-    console.log(e.target);
+    window.location.href = 'http://localhost:3000/bin/' + e.target.id;
   }
 
   componentDidMount() {
