@@ -1,0 +1,60 @@
+.wrapper {
+  text-align: center;
+}
+
+input {
+  width: 30%;
+  box-shadow: 3px 3px 3px rgba(0,0,0,0.2);
+  border : 1px solid rgba(0,0,0,0.1);
+  height: 2.5rem;
+  vertical-align: middle;
+  display: inline-block;
+  font-size: 1.5rem;
+  margin-left: 10%;
+}
+
+#createBin {
+  display: inline-block;
+  border: 1px solid white;
+  background-color: #1E90FF;
+  border-radius: 3px;
+  color: white;
+  font-size: 1.5rem;
+  height: 2.5rem;
+  width: 10%;
+  margin-left: 3%;
+  vertical-align: middle;
+}
+
+.admin_title {
+  height: 5%;
+  text-align: center;
+  font-size: 5rem;
+}
+
+.display_bins {
+  text-align: center;
+  margin-top: 2%;
+}
+
+.bins {
+  border: 1px solid gray;
+  border-radius: 5px;
+  height: 35%;
+  width: 25%;
+  margin: 0 auto;
+  color: #1E90FF;
+  font-size: 2rem;
+  margin-top: 1.5%;
+}
+
+.bins button {
+  font-size: 2rem;
+  background-color: #1E90FF;  
+  color: white;
+  border-radius: 5px;
+  height: 25%;
+  width: 25%;
+  margin-left: 2.5%;
+  margin-top: 2.5%;
+}
