@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+label {
+  font-size: 1.5rem;
+}
+
 input {
   width: 30%;
   box-shadow: 3px 3px 3px rgba(0,0,0,0.2);
@@ -13,7 +17,7 @@ input {
   margin-left: 10%;
 }
 
-#createBin {
+.wrapper button {
   display: inline-block;
   border: 1px solid white;
   background-color: #1E90FF;
@@ -49,7 +53,7 @@ input {
 }
 
 .bins button {
-  font-size: 2rem;
+  font-size: 16px;
   background-color: #1E90FF;  
   color: white;
   border-radius: 5px;
@@ -57,4 +61,15 @@ input {
   width: 25%;
   margin-left: 2.5%;
   margin-top: 2.5%;
+}
+
+#displayPassword {
+  background-color: rgb(185, 188, 190); 
+  font-size: 16px;
+}
+
+#filler {
+  border: 0px none white;
+  background-color: white;
+  z-index: -1;
 }
