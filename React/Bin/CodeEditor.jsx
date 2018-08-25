@@ -1,9 +1,9 @@
 import React from "react";
 
 const CodeEditor = (props) => {
-    console.log(props.code)
     return (
         <div>
+        <h3>JS-Bin</h3>
             <textarea class ="textarea" onChange={props.onChange} value={props.code}/>
         </div>
     );

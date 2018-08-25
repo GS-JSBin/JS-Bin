@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Terminal from "./Terminal.jsx";
 import ToolBar from "./ToolBar.jsx";
 import CodeEditor from "./CodeEditor.jsx";
+import "./css/codeeditor.css"
 
 class Bin extends React.Component{
     constructor(props) {
@@ -20,9 +21,10 @@ class Bin extends React.Component{
 render () {
     return (
         <div>
-            <h1>Hello From Bin</h1>
+           <div class="code">
             <CodeEditor onChange={this.handleChange} code={this.state.code} />
             <Terminal terminalText={this.state.terminalText} />
+            </div>
             <ToolBar onChange={this.handleChange} code={this.state.code} />
         </div>
     )
