@@ -13,16 +13,6 @@ app.use(bodyparser.json());
 app.use('/admin', adminRouter);
 app.use('/bin', binRouter);
 
-io.on('connection', function(socket) {
-    socket.on('updatedCode', function(newCode) {
-        socket.broadcast.emit('codeUpdate', newCode);
-    });
-
-    socket.on('updatedTerminal', function(terminalText) {
-        socket.broadcast.emit('terminalUpdate', terminalText);
-    });
-});
-
 adminRouter.use(express.static('build/admin'));
 
 adminRouter.get('/', (req, res) => {
@@ -58,14 +48,33 @@ adminRouter.delete('/deleteBin', (req, res) => {
 binRouter.get('/:name/getContent', (req, res) => {
 
 })
+
 app.get('/webworker/:name', (req, res) => {
-    let consoleLogOverride = `console.log = function(string) {postMessage(string);}`;
-    fs.writeFile(path.resolve(__dirname, 'build/webworkers/', req.params.name), consoleLogOverride + db.findOne(req.params.name).code.split('/n').join(''), function() {
-        res.sendFile(path.resolve(__dirname, 'build/webworkers/', req.params.name));
+    let consoleLogOverride = `console.log = function(string) {postMessage(string);} \n`;
+    fs.writeFile(path.resolve(__dirname, '../build/webworkers/', req.params.name + '.js'), consoleLogOverride + db.findOne(req.params.name).code, function(err) {
+        if(err) throw new Error(err);
+        res.sendFile(path.resolve(__dirname, '../build/webworkers/', req.params.name + '.js'));
     });
 });
 
 binRouter.get('/:name', (req, res, next) => {
+    io.on('connection', function(socket) {
+        console.log('connecting');
+        socket.emit('codeUpdate', db.findOne(req.params.name).code);
+        socket.emit('terminalUpdate', db.findOne(req.params.name).terminal);
+    
+        socket.on('updatedCode', function(newCode) {
+            console.log('writing')
+            db.findOne(newCode.bin).code = newCode.data;
+            socket.broadcast.emit('codeUpdate', newCode.data);
+        });
+    
+        socket.on('updatedTerminal', function(terminalText) {
+            db.findOne(terminalText.bin).terminal = terminalText.data;
+            socket.broadcast.emit('terminalUpdate', terminalText.data);
+        });
+    });
+
     if(req.params.name.split('.')[req.params.name.split('.').length - 1] === 'js' || req.params.name.split('.')[req.params.name.split('.').length - 1] === 'map' || req.params.name.split('.')[req.params.name.split('.').length - 1] === 'css') {
         return next('route');
     } 
